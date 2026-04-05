@@ -73,6 +73,9 @@ class models_Core_Table{
     }
     public function insert()
     {
+        if (isset($this->data[$this->primaryKey]) && empty($this->data[$this->primaryKey])) {
+            unset($this->data[$this->primaryKey]);
+        }
         $column = implode(",", array_keys($this->data));
         $values = array_map(function ($v) {
             return "'$v'";

@@ -2,6 +2,7 @@
 require_once "app/controllers/Core/Base.php";
 require_once "app/models/Core/Request.php";
 require_once "app/controllers/Product.php";
+require_once "app/controllers/Category.php";
 
 class Boot extends Controllers_Core_Base{
     public static function init(){
