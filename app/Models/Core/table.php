@@ -1,5 +1,5 @@
 <?php
-class Models_Core_table{
+class models_Core_table{
     
 }
 ?>
