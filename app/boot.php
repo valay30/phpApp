@@ -5,6 +5,7 @@ require_once "app/controllers/Product.php";
 require_once "app/controllers/Category.php";
 require_once "app/controllers/Customergroup.php";
 require_once "app/controllers/Customer.php";
+require_once "app/controllers/Productmedia.php";
 
 class Boot extends Controllers_Core_Base{
     public static function init(){
