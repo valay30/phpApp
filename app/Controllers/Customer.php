@@ -2,13 +2,15 @@
 require_once "app/models/Customer.php";
 class Controllers_Customer extends Controllers_Core_Base{
     public function listAction(){
-        $customerModel = new models_Customer();
+        // $customerModel = new models_Customer();
+        $customerModel = Mage::getModel("customer");
         $data = $customerModel->getAll();
 
         $this->renderTemplate('customer/list.phtml', ['data'=> $data]);
     }
     public function editAction(){
-        $customerModel = new models_Customer();
+        // $customerModel = new models_Customer();
+        $customerModel = Mage::getModel("customer");
         $id = $this->getRequest()->get('id');
         if($id){
             if(!$customerModel->load($id)){
@@ -19,7 +21,8 @@ class Controllers_Customer extends Controllers_Core_Base{
     }
     public function saveAction(){
         $data = $this->getRequest()->post('customer');
-        $customerModel = new models_Customer();
+        // $customerModel = new models_Customer();
+        $customerModel = Mage::getModel("customer");
         
         if(isset($data['customer_id']) && $data['customer_id']){
             $customerModel->load($data['customer_id']);
@@ -34,7 +37,8 @@ class Controllers_Customer extends Controllers_Core_Base{
     }
     public function deleteAction(){
         $id = $this->getRequest()->get('id');
-        $customerModel = new models_Customer();
+        // $customerModel = new models_Customer();
+        $customerModel = Mage::getModel("customer");
         if($id){
             $customerModel->load($id);
             $customerModel->delete();

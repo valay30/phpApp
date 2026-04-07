@@ -2,13 +2,15 @@
 require_once "app/models/Customergroup.php";
 class Controllers_Customergroup extends Controllers_Core_Base{
     public function listAction(){
-        $customergroupModel = new models_Customergroup();
+        // $customergroupModel = new models_Customergroup();
+        $customergroupModel = Mage::getModel("customergroup");
         $data = $customergroupModel->getAll();
 
         $this->renderTemplate('customergroup/list.phtml', ['data'=> $data]);
     }
     public function editAction(){
-        $customergroupModel = new models_Customergroup();
+        // $customergroupModel = new models_Customergroup();
+        $customergroupModel = Mage::getModel("customergroup");
         $id = $this->getRequest()->get('id');
         if($id){
             // $categoryModel->load($id);
@@ -20,7 +22,8 @@ class Controllers_Customergroup extends Controllers_Core_Base{
     }
     public function saveAction(){
         $data = $this->getRequest()->post('customergroup');
-        $customergroupModel = new models_Customergroup();
+        // $customergroupModel = new models_Customergroup();
+        $customergroupModel = Mage::getModel("customergroup");
         
         if(isset($data['customer_group_id']) && $data['customer_group_id']){
             $customergroupModel->load($data['customer_group_id']);
@@ -35,7 +38,8 @@ class Controllers_Customergroup extends Controllers_Core_Base{
     }
     public function deleteAction(){
         $id = $this->getRequest()->get('id');
-        $customergroupModel = new models_Customergroup();
+        // $customergroupModel = new models_Customergroup();
+        $customergroupModel = Mage::getModel("customergroup");
         if($id){
             $customergroupModel->load($id);
             $customergroupModel->delete();

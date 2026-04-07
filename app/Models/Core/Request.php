@@ -14,13 +14,13 @@ class models_Core_Request{
     }
 
     public function input($key,$default=null){
-        if(!$_GET[$key]){
+        if($_GET[$key]){
             return $_GET[$key];
         }
-        if(!$_POST[$key]){
+        if($_POST[$key]){
             return $_POST[$key];
         }
-        
+        return $default;
     }
     public function has($key){
         if($_GET[$key] || $_POST[$key]){

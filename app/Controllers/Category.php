@@ -2,13 +2,15 @@
 require_once "app/models/Category.php";
 class Controllers_Category extends Controllers_Core_Base{
     public function listAction(){
-        $categoryModel = new models_Category();
+        // $categoryModel = new models_Category();
+        $categoryModel = Mage::getModel("category");
         $data = $categoryModel->getAll();
 
         $this->renderTemplate('category/list.phtml', ['data'=> $data]);
     }
     public function editAction(){
-        $categoryModel = new models_Category();
+        // $categoryModel = new models_Category();
+        $categoryModel = Mage::getModel("category");
         $id = $this->getRequest()->get('id');
         if($id){
             // $categoryModel->load($id);
@@ -20,7 +22,8 @@ class Controllers_Category extends Controllers_Core_Base{
     }
     public function saveAction(){
         $data = $this->getRequest()->post('category');
-        $categoryModel = new models_Category();
+        // $categoryModel = new models_Category();
+        $categoryModel = Mage::getModel("category");
         
         if(isset($data['category_id']) && $data['category_id']){
             $categoryModel->load($data['category_id']);
@@ -35,7 +38,8 @@ class Controllers_Category extends Controllers_Core_Base{
     }
     public function deleteAction(){
         $id = $this->getRequest()->get('id');
-        $categoryModel = new models_Category();
+        // $categoryModel = new models_Category();
+        $categoryModel = Mage::getModel("category");
         if($id){
             $categoryModel->load($id);
             $categoryModel->delete();

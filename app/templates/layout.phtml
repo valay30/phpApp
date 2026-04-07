@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <div>
+        Header
+        <?php include 'app/templates/menu.phtml'; ?>
+    </div>
+    <div class="content">
+        <!-- <?php print_r($this->getChild('product/list')); ?> -->
+        <!-- Content -->
+        <?php $this->getChild('product/list')->toHtml(); ?>
+    </div>
+    <div>
+        Footer
+    </div>
+</body>
+</html>
