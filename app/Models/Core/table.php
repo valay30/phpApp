@@ -1,6 +1,6 @@
 <?php
 require_once "app/models/Core/database.php";
-class models_Core_Table{
+class model_Core_Table{
     protected $db = null;
     public $tableName = '';
     public $primaryKey = '';
@@ -8,7 +8,7 @@ class models_Core_Table{
 
     public function __construct()
     {
-        $this->db = new models_Core_Database();
+        $this->db = new model_Core_Database();
     }
 
     public function getTableName()

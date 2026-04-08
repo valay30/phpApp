@@ -1,62 +1,87 @@
 <?php
 require_once "app/models/Product.php";
-require_once "app/Block/Core/template.php";
-require_once "app/Block/Core/Layout.php";
-class Controllers_Product extends Controllers_Core_Base{
-    public function listAction(){
-        // $productModel = new models_Product();
-        $productModel = Mage::getModel("product");
-        $data = $productModel->getAll();
-        $block = Mage::getBlock("product/list");
-        $block->setData($data);
-        // $this->renderTemplate('product/list.phtml', ['data'=> $data]);
-        // $this->renderTemplate($block->getTemplate().'.phtml', ['data'=> $data]);
-        
-        $layout = $this->getLayout();
-        $layout->addChild('product/list', $block);
-        $layout->toHtml();
+require_once "app/blocks/Core/template.php";
+require_once "app/blocks/Layout.php";
+class Controller_Product extends Controller_Core_Base
+{
+    public function listAction()
+    {
+        try {
+            $productModel = Mage::getModel("product");
+            $data = $productModel->getAll();
+            $block = Mage::getBlock("product/list");
+            $block->setData($data);
 
+            $layout = $this->getLayout();
+            $layout->addChild('product/list', $block);
+            $layout->toHtml();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
-    public function editAction(){
-        // $productModel = new models_Product();
-        $productModel = Mage::getModel("product");
-        $id = $this->getRequest()->get('id');
-        if($id){
-            // $productModel->load($id);
-            if(!$productModel->load($id)){
-                throw new Exception("Invalid Product ID");
+    public function editAction()
+    {
+        try {
+            $productModel = Mage::getModel("product");
+            $id = $this->getRequest()->get('id');
+            if ($id) {
+                if (!$productModel->load($id)) {
+                    throw new Exception("Invalid Product ID");
+                }
             }
+            $this->renderTemplate('product/edit.phtml', ['data' => $productModel]);
+            // $block = Mage::getBlock("product/edit");
+            // $block->toHtml();
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
-        $this->renderTemplate('product/edit.phtml', ['data'=> $productModel]);
-        // $block = Mage::getBlock("product/edit");
-        // $block->toHtml();
     }
-    public function saveAction(){
-        $data = $this->getRequest()->post('product');
-        // $productModel = new models_Product();
-        $productModel = Mage::getModel("product");
-        
-        if(isset($data['product_id']) && $data['product_id']){
-            $productModel->load($data['product_id']);
-        }
+    public function saveAction()
+    {
+        try {
+            $data = $this->getRequest()->post('product');
+            $productModel = Mage::getModel("product");
 
-        foreach($data as $key => $value){
-            $productModel->$key = $value;
+            if (isset($data['product_id']) && $data['product_id']) {
+                $productModel->load($data['product_id']);
+            }
+
+            foreach ($data as $key => $value) {
+                $productModel->$key = $value;
+            }
+
+            $productModel->save();
+            $this->redirect('list', 'product');
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
+    }
+    public function deleteAction()
+    {
+        try {
+            $id = $this->getRequest()->get('id');
+            $productModel = Mage::getModel("product");
+            if ($id) {
+                $productModel->load($id);
+                $productModel->delete();
+            }
+            $this->redirect('list', 'product');
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function sampleAction()
+    {
+        $layout = Mage::getBlock("Layout");
+        $layout->setTemplate("layout");
+        $footer = Mage::getBlock('layout/footer');
         
-        $productModel->save();
-        $this->redirect('list', 'product');
+        $layout->getChild('content')->addChild('footer', $footer);
+
+        echo "<pre>";
+        print_r($layout);
+        
+        $layout->render();
     }
-    public function deleteAction(){
-        $id = $this->getRequest()->get('id');
-        // $productModel = new models_Product();
-        $productModel = Mage::getModel("product");
-        if($id){
-            $productModel->load($id);
-            $productModel->delete();
-        }
-        $this->redirect('list', 'product');
-    }
-    
 }
-?>

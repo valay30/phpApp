@@ -1,7 +1,8 @@
 <?php
-class Controllers_Core_Base
+class Controller_Core_Base
 {
     protected $request = null;
+    protected $layout = null;
     public function setRequest($request)
     {
         $this->request = $request;
@@ -9,8 +10,7 @@ class Controllers_Core_Base
     }
     public function getRequest()
     {
-        if(!$this->request){
-            // $this->request = new models_Core_Request();
+        if (!$this->request) {
             $this->request = Mage::getModel("core/request");
             $this->setRequest($this->request);
             return $this->request;
@@ -20,22 +20,22 @@ class Controllers_Core_Base
     public function dispatch()
     {
         $this->request = $this->getRequest();
-        $action = $this->request->get("a","index") . "Action";
+        $action = $this->request->get("a", "index") . "Action";
         $this->$action();
     }
-    
-    public function redirect($a=null,$c=null)
+
+    public function redirect($a = null, $c = null)
     {
         $request = $this->getRequest();
         if ($a !== null) {
             $action = $a;
-        }else{
+        } else {
             $action = $request->get("a", "index");
         }
 
         if ($c !== null) {
             $controller = $c;
-        }else{
+        } else {
             $controller = $request->get("c", "index");
         }
 
@@ -45,7 +45,7 @@ class Controllers_Core_Base
     public function renderTemplate($template, $data = [])
     {
         extract($data);
-        
+
         $template = 'app/templates/' . $template;
 
         if (!file_exists($template)) {
@@ -56,13 +56,10 @@ class Controllers_Core_Base
     }
     public function getLayout()
     {
-        return Mage::getBlock('core/layout');
+        return Mage::getBlock('Layout');
     }
     public function setLayout($layout)
     {
         Mage::getBlock($layout);
-       
     }
 }
-
-?>

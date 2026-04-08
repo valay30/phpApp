@@ -1,14 +1,18 @@
 <?php
 require_once "app/boot.php";
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT_PATH', getcwd());
+define('APP_PATH', ROOT_PATH . DS . 'app');
+
 class Mage{
     public static function init(){
         Boot::init();
     }
     public static function getBlock($name){
-        $block = "app/Block/" . $name . ".php";
+        $block = "app/blocks/" . $name . ".php";
         if(file_exists($block)){
             require_once $block;
-            $className = "Block_" . str_replace("/", "_", $name);
+            $className = "block_" . str_replace("/", "_", $name);
             return new $className();
         }
         return false;
@@ -18,7 +22,7 @@ class Mage{
         $controller = "app/Controllers/" . $name . ".php";
         if(file_exists($controller)){
             require_once $controller;
-            $className = "Controllers_" . str_replace("/", "_", $name);
+            $className = "Controller_" . str_replace("/", "_", $name);
             return new $className();
         }
         return false;
@@ -28,7 +32,7 @@ class Mage{
         $model = "app/models/" . $name . ".php";
         if(file_exists($model)){
             require_once $model;
-            $className = "models_" . str_replace("/", "_", $name);
+            $className = "model_" . str_replace("/", "_", $name);
             return new $className();
         }
         return false;

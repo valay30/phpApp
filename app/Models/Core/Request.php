@@ -1,5 +1,5 @@
 <?php
-class models_Core_Request{
+class model_Core_Request{
     public function get($key,$default=null){
         if(array_key_exists($key,$_GET)){
             return $_GET[$key];

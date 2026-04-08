@@ -7,14 +7,11 @@ require_once "app/controllers/Customergroup.php";
 require_once "app/controllers/Customer.php";
 require_once "app/controllers/Productmedia.php";
 
-class Boot extends Controllers_Core_Base{
+class Boot extends Controller_Core_Base{
     public static function init(){
-        // $request = new models_Core_Request();
         $request = Mage::getModel("core/request");
-        // $controller = "Controllers_" . ucfirst($request->get("c","index"));
         $controller = Mage::getController($request->get("c","index"));
-        // $controllerObject = new $controller(); 
-        // $controllerObject->dispatch();
+        
         $controller->dispatch();
     }
 }

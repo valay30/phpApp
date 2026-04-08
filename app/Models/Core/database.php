@@ -1,5 +1,5 @@
 <?php
-class models_Core_Database{
+class model_Core_Database{
     public $server = "localhost";
     public $username = "root";
     public $password = "root";

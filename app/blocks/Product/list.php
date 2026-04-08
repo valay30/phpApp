@@ -1,6 +1,6 @@
 <?php
-require_once "app/Block/Core/template.php";
-class Block_Product_list extends Block_Core_template{
+require_once "app/blocks/Core/template.php";
+class block_Product_list extends block_Core_template{
     public function __construct(){
         $this->setTemplate('product/list');
     }
